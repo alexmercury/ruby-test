@@ -2,11 +2,15 @@ class Tile < ApplicationRecord
   belongs_to :play
 
   def exists?
-    raise 'Not Implemented'
+    self.play.game.plays.includes(:tiles).where(tiles: {x: self.x, y: self.y}).count > 0
   end
 
   def adjacent
-    raise 'Not Implemented'
+    self.play.other_tiles.
+      where(x: self.x + 1, y: self.y).
+      or(self.play.other_tiles.where(x: self.x - 1, y: self.y)).
+      or(self.play.other_tiles.where(x: self.x, y: self.y + 1)).
+      or(self.play.other_tiles.where(x: self.x, y: self.y - 1))
   end
 
   def center?
@@ -24,4 +28,5 @@ class Tile < ApplicationRecord
   def any_adjacent?
     adjacent.count > 0
   end
+
 end

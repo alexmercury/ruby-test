@@ -14,7 +14,7 @@ RSpec.describe Play do
 
   subject { Play.new(game: the_game, user: player_two) }
 
-  xdescribe '#tiles_at' do
+  describe '#tiles_at' do
     it 'replaces all tiles with new tiles at coordinates' do
       subject.tiles_at [[0, 1], [0, 2]]
 
@@ -24,7 +24,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'not touching anything' do
+  context 'not touching anything' do
     before { subject.tiles_at  [[9, 9]] }
 
     it 'is invalid' do
@@ -32,7 +32,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'with an adjacent previous tile' do
+  context 'with an adjacent previous tile' do
     before do
       first_play
       subject.tiles_at  [[1, 0], [2, 0], [3, 0]]
@@ -43,7 +43,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'with spaces missing' do
+  context 'with spaces missing' do
     before { subject.tiles_at [[-1, 0], [1, 0], [2, 0]] }
 
     it 'is invalid' do
@@ -58,7 +58,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'overlapping an existing tile' do
+  context 'overlapping an existing tile' do
     before do
       first_play
       subject.tiles_at [[-1, 0], [0, 0], [0, 1]]
@@ -69,7 +69,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'with non-linear y placement' do
+  context 'with non-linear y placement' do
     before { subject.tiles_at  [[0, 0], [0, -1], [1, -2]] }
 
     it 'is invalid' do
@@ -77,7 +77,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'with non-linear x placement' do
+  context 'with non-linear x placement' do
     before { subject.tiles_at  [[0, 0], [1, 1], [2, 0]] }
 
     it 'is invalid' do
@@ -85,7 +85,7 @@ RSpec.describe Play do
     end
   end
 
-  xcontext 'with linear placement' do
+  context 'with linear placement' do
     before { subject.tiles_at  [[0, 0], [0, 1], [0, 2]] }
 
     it 'is valid' do
